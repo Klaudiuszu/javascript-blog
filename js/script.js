@@ -71,11 +71,12 @@ function generateTitleLinks(){
     titleList.insertAdjacentHTML('beforebegin', linkHTML);
   } 
 }
-generateTitleLinks();
+
+generateTitleLinks(customSelector = '');
 
 function generateTags(){
   /* find all articles */
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(optArticleSelector + customSelector);
   /* START LOOP: for every article: */
   for(let article of articles) {
   /* find tags wrapper */
@@ -111,9 +112,9 @@ function tagClickHandler(event){
   /* make a new constant "href" and read the attribute "href" of the clicked element */
   const activeSelector = document.querySelectorAll('a.active[href^="#tag-"]');
   /* make a new constant "tag" and extract tag from the "href" constant */
-
+  const tag = href.replace('#tag-', '');
   /* find all tag links with class active */
-
+  const activeLinks = document.querySelectorAll('.active');
   /* START LOOP: for each active tag link */
 
     /* remove class active */
@@ -129,6 +130,7 @@ function tagClickHandler(event){
   /* END LOOP: for each found tag link */
 
   /* execute function "generateTitleLinks" with article selector as argument */
+  generateTitleLinks('[data-tags~="' + tag + '"]');
 }
 
 function addClickListenersToTags(){
