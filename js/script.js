@@ -89,7 +89,7 @@ function generateTags(){
     /* START LOOP: for each tag */
     for(let tag of articleTagsArray){
       /* generate HTML of the link */
-      linkHTML = '<li><a href="#' + 'tag-' + tag + '"' + '</a></li>';
+      linkHTML += '<li><a href="#' + 'tag-' + tag + '"' + '>' + tag + '</a></li>';
       /* add generated code to html variable */
       console.log(linkHTML);
       /* END LOOP: for each tag */
@@ -105,7 +105,7 @@ generateTags();
 
 function tagClickHandler(event){
   /* prevent default action for this event */
-
+  event.preventDefault();
   /* make new constant named "clickedElement" and give it the value of "this" */
 
   /* make a new constant "href" and read the attribute "href" of the clicked element */
