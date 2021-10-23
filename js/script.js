@@ -46,15 +46,14 @@ const optArticleSelector = '.post',
   optArticleTagsSelector = '.post-tags .list';
 
 
-function generateTitleLinks(){
+function generateTitleLinks(customSelector = ''){
 
   /* remove contents of titleList */
-  const titleList = document.querySelector(optTitleListSelector);
+  const titleList = document.querySelectorAll(optTitleListSelector);
   titleList.innerHTML = '';
 
   /* for each article */
-  const articles = document.querySelectorAll(optArticleSelector);
-    
+  const articles = document.querySelectorAll(optArticleSelector + customSelector);
 
   for(let article of articles) {
     /* get the article id */
@@ -72,11 +71,11 @@ function generateTitleLinks(){
   } 
 }
 
-generateTitleLinks(customSelector = '');
+generateTitleLinks();
 
 function generateTags(){
   /* find all articles */
-  const articles = document.querySelectorAll(optArticleSelector + customSelector);
+  const articles = document.querySelectorAll(optArticleSelector);
   /* START LOOP: for every article: */
   for(let article of articles) {
   /* find tags wrapper */
@@ -101,7 +100,6 @@ function generateTags(){
   /* END LOOP: for every article: */
   }
 }
-
 generateTags();
 
 function tagClickHandler(event){
@@ -110,19 +108,19 @@ function tagClickHandler(event){
   /* make new constant named "clickedElement" and give it the value of "this" */
   const clickedElement = this;
   /* make a new constant "href" and read the attribute "href" of the clicked element */
-  const activeSelector = document.querySelectorAll('a.active[href^="#tag-"]');
+  const href = clickedElement.getAttribute('href');
   /* make a new constant "tag" and extract tag from the "href" constant */
   const tag = href.replace('#tag-', '');
   /* find all tag links with class active */
-  const activeLinks = document.querySelectorAll('.active');
+  const activeSelectors = document.querySelectorAll('a.active[href^="#tag-"]');
   /* START LOOP: for each active tag link */
-
+  for(let activeSelector of activeSelectors) {
     /* remove class active */
-
+    activeSelector.classList.remove('active');
   /* END LOOP: for each active tag link */
-
+  }
   /* find all tag links with "href" attribute equal to the "href" constant */
-
+  
   /* START LOOP: for each found tag link */
 
     /* add class active */
