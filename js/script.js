@@ -44,7 +44,7 @@ const optArticleSelector = '.post',
 function generateTitleLinks(customSelector = ''){
 
   /* remove contents of titleList */
-  const titleList = document.querySelectorAll(optTitleListSelector);
+  const titleList = document.querySelector(optTitleListSelector);
   titleList.innerHTML = '';
 
   /* for each article */
@@ -83,7 +83,7 @@ function generateTags(){
   /* find tags wrapper */
     const titleList = article.querySelector(optArticleTagsSelector);
     /* make html variable with empty string */
-    let linkHTML = '';
+    let html = '';
     /* get tags from data-tags attribute */
     const articleTags = article.getAttribute('data-tags');
     /* split tags into array */
@@ -91,14 +91,13 @@ function generateTags(){
     /* START LOOP: for each tag */
     for(let tag of articleTagsArray){
       /* generate HTML of the link */
-      linkHTML += '<li><a href="#tag-' + '">' + tag + '</a></li>';
+      const linkHTML = '<li><a href="#tag-' + '">' + tag + '</a></li>';
       /* add generated code to html variable */
-      console.log(linkHTML);
+      html += linkHTML + ' ';
       /* END LOOP: for each tag */
-      // PROBLEM Z WYŚWIETLANIEM TAGÓW - NIE DODAJĄ SIĘ DO HTMl ________________________
     }
     /* insert HTML of all the links into the tags wrapper */
-    titleList.insertAdjacentHTML('beforebegin',linkHTML);
+    titleList.innerHTML = html;
   /* END LOOP: for every article: */
   }
 }
@@ -117,7 +116,7 @@ function tagClickHandler(event){
   /* find all tag links with class active */
   const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
   /* START LOOP: for each active tag link */
-  let html = '';
+  //let html = '';
   for(let activeTag of activeTags) {
     /* remove class active */
     activeTag.classList.remove('active');
@@ -147,3 +146,32 @@ function addClickListenersToTags(){
 }
 
 addClickListenersToTags();
+
+function generateAuthors() {
+
+  /* find all articles */
+  const articles = document.querySelectorAll(optArticleSelector);
+
+  /* START LOOP: for every article: */
+  for(let article of articles) {
+
+    /* find tags wrapper */
+    const titleList = article.querySelector(optArticleTagsSelector);
+
+    /* make html variable with empty string */
+    let html = '';
+
+    /* get author name from data-author attribute */
+
+    /* START LOOP: for each author */
+
+    /* generate HTML of the link */
+
+    /* add generated code to html variable */
+
+    /* END LOOP: for each author */
+  }
+  /* insert HTML of all the links into the tags wrapper */
+}
+
+generateAuthors();
