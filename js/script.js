@@ -149,29 +149,42 @@ addClickListenersToTags();
 
 function generateAuthors() {
 
+  console.log(generateAuthors);
+
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
-
   /* START LOOP: for every article: */
   for(let article of articles) {
-
-    /* find tags wrapper */
-    const titleList = article.querySelector(optArticleTagsSelector);
-
+    /* find authors wrapper */
+    const authorsWrapper = article.querySelector(optArticleTagsSelector);
     /* make html variable with empty string */
     let html = '';
-
     /* get author name from data-author attribute */
-
-    /* START LOOP: for each author */
-
+    const articleAuthors = article.getAttribute('data-author');
     /* generate HTML of the link */
-
+    const linkHTML = '<a href="#author-' + articleAuthors + '">' + articleAuthors + '</a>';
     /* add generated code to html variable */
-
-    /* END LOOP: for each author */
+    html += linkHTML;
+    console.log(html);
+    /* insert HTML to the authorsWrapper */
+    authorsWrapper.innerHTML = html;
   }
-  /* insert HTML of all the links into the tags wrapper */
 }
 
 generateAuthors();
+
+
+
+
+function addClickListenersToAuthors(){
+/* find all links to Authors */
+  const authors = document.querySelectorAll('a[href^="#tag-"]');
+  /* START LOOP: for each link */
+  for(let author of authors) {
+  /* add authorClickHandler as event listener for that link */
+    author.addEventListener('click');
+  /* END LOOP: for each link */
+  }
+}
+
+addClickListenersToAuthors();
