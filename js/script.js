@@ -168,7 +168,7 @@ function generateAuthors() {
   /* START LOOP: for every article: */
   for(let article of articles) {
     /* find authors wrapper */
-    const authorsWrapper = article.querySelector(optArticleTagsSelector);
+    const authorsWrapper = article.querySelector(optArticleAuthorSelector);
     /* make html variable with empty string */
     let html = '';
     /* get author name from data-author attribute */
