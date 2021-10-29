@@ -113,6 +113,8 @@ function generateTags(){
   /* [NEW] find list of tags in right column */
   const tagList = document.querySelector('.tags');
   /* [NEW] create variable fort all links HTML code */
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagsParams);
   let allTagsHTML = '';
   /* START LOOP: for each tag in allTags */
   for(let tag in allTags) {
@@ -124,8 +126,30 @@ function generateTags(){
   /* [NEW] add html from allTagsHTML to taglist */
 
   tagList.innerHTML = allTagsHTML;
-  //console.log(allTags);
+  console.log(allTags);
 }
+
+function calculateTagsParams(tags){
+  // NIE DO KOŃCA ROZUMIEM CZEMU TO DZIAŁA
+  const params = {
+    max: 0,
+    min: 999999,
+  };
+
+  for(let tag in tags){
+
+    if(tags[tag] > params.max){
+      params.max = tags[tag];
+    } else if(tags[tag] < params.min) {
+      params.min = tags[tag];
+    }
+    console.log(tag + 'is used ' + tags[tag] + ' times');
+  }
+
+  return params;
+}
+
+calculateTagsParams();
 generateTags();
 
 function tagClickHandler(event){
