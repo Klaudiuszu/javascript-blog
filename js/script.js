@@ -39,7 +39,9 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags.list';
+  optTagsListSelector = '.tags.list',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-';
 
 
 function generateTitleLinks(customSelector = ''){
@@ -119,7 +121,10 @@ function generateTags(){
   /* START LOOP: for each tag in allTags */
   for(let tag in allTags) {
     /* generate code of a link and add it to allTagsHTML */
-    allTagsHTML += tag + ' (' + allTags[tag] + ') '; 
+    //allTagsHTML += tagLinkHtml; 
+    // -------- tu mam jakiś problem?? ------
+    const tagLinkHtml = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + allTags[tag] + '</a></li>';
+    console.log('tagLinkHtml:', tagLinkHtml);
   }
   /* [NEW] END LOOP: for each tag in allTags */ 
 
@@ -148,9 +153,17 @@ function calculateTagsParams(tags){
 
   return params;
 }
-
 calculateTagsParams();
 generateTags();
+
+function calculateTagClass(count, params) {
+
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  return optCloudClassPrefix + classNumber;
+}
 
 function tagClickHandler(event){
   /* prevent default action for this event */
@@ -161,7 +174,7 @@ function tagClickHandler(event){
   const href = clickedElement.getAttribute('href');
   /* make a new constant "tag" and extract tag from the "href" constant */
   const tag = href.replace('#tag-', '');
-  console.log(tag);
+  //console.log(tag);
   /* find all tag links with class active */
   const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
   
@@ -214,7 +227,7 @@ function generateAuthors() {
     const linkHTML = '<a href="#author-' + articleAuthors + '">' + articleAuthors + '</a>';
     /* add generated code to html variable */
     html += linkHTML;
-    console.log(html);
+    //console.log(html);
     /* insert HTML to the authorsWrapper */
     authorsWrapper.innerHTML = html;
   }
