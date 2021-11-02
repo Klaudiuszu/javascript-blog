@@ -30,7 +30,6 @@ function titleClickHandler(event){
   targetArticle.classList.add('active');
 }
 
-
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
@@ -192,7 +191,8 @@ function generateAuthors() {
     const authorsWrapper = article.querySelector(optArticleAuthorSelector);
     let html = '';
     const articleAuthors = article.getAttribute('data-author');
-    const linkHTMLData = {id: articleAuthors, title: authorsWrapper};
+
+    const linkHTMLData = {id: authorsWrapper, title: articleAuthors};
     const linkHTML = templates.articleLink(linkHTMLData);
 
     html += linkHTML;
@@ -217,7 +217,7 @@ function authorClickHandler(){
     activeAuthor.classList.remove('active');
   }
   const clickedAuthors = document.querySelectorAll('a.active[href^="#author-"]');
-  
+
   for(let clickedAuthor of clickedAuthors){
     clickedAuthor.classList.add('active');
   }
