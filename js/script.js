@@ -9,6 +9,7 @@ const templates = {
 function titleClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
+  console.log('dziala');
 
 
   const activeLinks = document.querySelectorAll('.titles a.active');
@@ -19,7 +20,7 @@ function titleClickHandler(event){
 
   clickedElement.classList.add('active');
 
-  const activeArticles = document.querySelectorAll('.posts article.active');
+  const activeArticles = document.querySelectorAll('article');
 
   for(let activeArticle of activeArticles) {
     activeArticle.classList.remove('active');
