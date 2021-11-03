@@ -46,7 +46,7 @@
                         </ul>
                     </div>
                 </article>        
-                <article class="post" id="article-2" data-tags="cat cactus tagone"  >
+                <article class="post" id="article-2" data-tags="cat cactus tagone" data-author="Marion Berry" >
                     <h3 class="post-title">Article 2</h3>
                     <p class="post-author"></p>
                     <div class="post-content">
@@ -175,7 +175,7 @@
                 </article>
                 <article class="post" id="article-10" data-tags="scissors" data-author="George Tuxedo">
                     <h3 class="post-title">Article 10</h3>
-                    <p class="post-author"></p>
+                    <p class="post-author">by Marion Berry</p>
                     <div class="post-content">
                         <p>Aliquam erat volutpat. Ut non eleifend lectus. Donec suscipit tellus tempor, ornare dui id, hendrerit neque. Phasellus lacinia laoreet dui in luctus. Sed hendrerit, magna sit amet varius tempor, augue augue scelerisque est, non scelerisque mauris libero eu sapien.</p>
                         
@@ -238,6 +238,14 @@
     <li><a class="{{className}}" href="#tag-{{tag}}" >{{tag}} ({{count}})</a></li>
     {{/each}}
 </script>
+
+<script id="template-author-cloud-link" type="text/x-handlebars-template">
+    {{#each authors}}
+    <li><a class="{{className}}" href="#author-{{author}}" >{{author}} ({{count}})</a></li>
+    {{/each}}
+</script>
+
+
 
 <script src="js/script.js"></script> 
 

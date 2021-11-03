@@ -1,6 +1,7 @@
 const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
-  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML)
+  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+  authorsLinks: Handlebars.compile(document.querySelector('#template-author-cloud-link').innerHTML),
 };
 'use strict';
 
@@ -35,7 +36,7 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags.list',
+  //optTagsListSelector = '.tags.list',
   optCloudClassCount = 5,
   optCloudClassPrefix = 'tag-size-';
 
@@ -113,8 +114,6 @@ function generateTags(){
       className: calculateTagClass(allTags[tag], tagsParams)
     });
 
-    const tagLinkHtml = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + allTags[tag] + '</a></li>';
-    console.log('tagLinkHtml:', tagLinkHtml);
   }
 
   tagList.innerHTML = templates.tagCloudLink(allTagsData);
@@ -134,7 +133,6 @@ function calculateTagsParams(tags){
     } else if(tags[tag] < params.min) {
       params.min = tags[tag];
     }
-    console.log(tag + 'is used ' + tags[tag] + ' times');
   }
   return params;
 }
@@ -184,20 +182,46 @@ addClickListenersToTags();
 
 function generateAuthors() {
 
+  let allAuthors = {};
   const articles = document.querySelectorAll(optArticleSelector);
 
   for(let article of articles) {
 
     const authorsWrapper = article.querySelector(optArticleAuthorSelector);
     let html = '';
-    const articleAuthors = article.getAttribute('data-author');
+    const articleAuthor = article.getAttribute('data-author');
 
-    const linkHTMLData = {id: authorsWrapper, title: articleAuthors};
+    const linkHTMLData = {id: articleAuthor, title: articleAuthor};
     const linkHTML = templates.articleLink(linkHTMLData);
+    
+    
 
     html += linkHTML;
     authorsWrapper.innerHTML = html;
+
+    if(!allAuthors[articleAuthor]) {
+      allAuthors[articleAuthor] = 1;
+    } else {
+      allAuthors[articleAuthor]++;
+    }
+    console.log(allAuthors);
   }
+
+  const authorList = document.querySelector('.authors');
+  console.log(authorList);
+
+  const allAuthorsLinks = {authors: []};
+
+  for( let author in allAuthors) {
+    allAuthorsLinks.authors.push({
+      author: author,
+      count: allAuthors[author],
+    });
+  }
+
+  authorList.innerHTML = templates.authorsLinks(allAuthorsLinks);
+  console.log(allAuthorsLinks);
+
 }
 
 generateAuthors();
