@@ -7,7 +7,6 @@ const templates = {
 
 
 function titleClickHandler(event){
-  event.preventDefault();
   const clickedElement = this;
   console.log('dziala');
 
@@ -17,18 +16,18 @@ function titleClickHandler(event){
   for(let activeLink of activeLinks){
     activeLink.classList.remove('active');
   }
-
+  event.preventDefault();
   clickedElement.classList.add('active');
 
-  const activeArticles = document.querySelectorAll('article');
+  const activeArticles = document.querySelectorAll('.posts article.active');
 
   for(let activeArticle of activeArticles) {
     activeArticle.classList.remove('active');
   }
-
+  
   const articleSelector = clickedElement.getAttribute('href');
   const targetArticle = document.querySelector(articleSelector); 
-
+  console.log('articleselector:', articleSelector);
   targetArticle.classList.add('active');
 }
 
